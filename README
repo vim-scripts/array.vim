@@ -1,0 +1,7 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1039
+
+array.vim implements multi-dimensional arrays in vim.  It has creation, deletion, manipulation, utility, and infomation commands/functions.  Usage is as simple as
+
+let myVar=b:array:1:2:3:
+
+Includes an example usage file.  Use ARRAYSYN and ARRAYUSE for information or see included documentation.
