@@ -1,0 +1,1044 @@
+<html>
+
+<head>
+<meta name=Generator content="Microsoft Office HTML Filter 2.0">
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Originator content="Microsoft Word 9">
+<title> </title>
+<style>
+<!--
+ 
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+span.EmailStyle15
+	{
+	color:windowtext;}
+span.EmailStyle16
+	{
+	color:windowtext;}
+p.HeaderSep, li.HeaderSep, div.HeaderSep
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	background:#A7B636;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.Divider, li.Divider, div.Divider
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	background:#00DDD8;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+p.CmdTxt, li.CmdTxt, div.CmdTxt
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:#6A2310;
+	font-weight:bold;}
+p.ArgTxt, li.ArgTxt, div.ArgTxt
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:#C02488;
+	font-weight:bold;}
+p.DispTxt, li.DispTxt, div.DispTxt
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:#216146;}
+p.EmphTxt, li.EmphTxt, div.EmphTxt
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:#216146;
+	font-weight:bold;}
+p.safe, li.safe, div.safe
+	{
+	margin:0in;
+	margin-bottom:.0001pt;
+	background:lime;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:#216146;}
+-->
+</style>
+</head>
+
+<body lang=EN-US>
+
+<div class=Section1>
+
+<p class=DispTxt> </p>
+
+<p class=HeaderSep>  </p>
+
+<p class=DispTxt>&nbsp;</p>
+
+<p class=DispTxt>  The plugin <b>array.vim</b> implements arrays.  Although a simple implementation,</p>
+
+<p class=DispTxt>  it addresses most
+basic array applications.  It is based
+on user defined</p>
+
+<p class=DispTxt>  commands (see <b><span style='color:#6A2310'>:h</span></b> <b><span style='color:#C02488'>40.2</span></b>,
+<b><span style='color:#6A2310'>:h</span></b>
+<b><span style='color:#C02488'>user-commands</span></b>,
+and <b><span style='color:#6A2310'>:h</span></b>
+<b><span style='color:#C02488'>command</span></b>)
+that can be</p>
+
+<p class=DispTxt>  used both on the
+command line and in scripts.  These
+commands are</p>
+
+<p class=DispTxt>  a syntactical
+convenience to provide ease of use and readability.  For</p>
+
+<p class=DispTxt>  the more ambitious,
+functions called by these commands can be accessed</p>
+
+<p class=DispTxt>  directly.  The use and description of these functions
+will not be</p>
+
+<p class=DispTxt>  treated here.  From the command descriptions here, and reviewing the</p>
+
+<p class=DispTxt>  related
+command/function declaration/definition in <b>array.vim</b>,
+function</p>
+
+<p class=DispTxt>  usage should be
+readily apparent.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  For quick reference,
+the command <b><span style='color:#6A2310'>ARRAYSYN</span></b>
+displays the syntax for all</p>
+
+<p class=DispTxt>  commands.  For more detail with simple examples, use
+the command</p>
+
+<p class=DispTxt>  <b><span style='color:#6A2310'>ARRAYUSE</span></b>.  Both of these have an optional command name
+argument which</p>
+
+<p class=DispTxt>  provides for the
+display of specific commands.  For
+example, </p>
+
+<p class=DispTxt> </p>
+
+<p class=ArgTxt>       <span
+style='color:#6A2310'>ARRAYSYN</span> 
+ARRAYNEW</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  will display syntax
+information on array creation.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>&nbsp;</p>
+
+<p class=MsoPlainText> </p>
+
+<p class=DispTxt>  To use an array, you
+must first create one.  The command <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+is</p>
+
+<p class=DispTxt>  used to do this.  The following describes how this is done and
+also</p>
+
+<p class=DispTxt>  gives general
+information on array basics as they apply.</p>
+
+<p class=DispTxt>  The syntax of the
+command is:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>decl</span></b>
+<b><span style='color:#C02488'>size</span></b>
+[<b><span style='color:#C02488'>init</span></b>]
+[<b><span style='color:#C02488'>s</span></b>]</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  <b><span style='color:#5D421D'>ARRAYNEW</span></b> takes 2 required
+arguments and 2 optional.  The required</p>
+
+<p class=DispTxt>  arguments are <b><span style='color:#C02488'>decl</span></b>
+and <b><span style='color:#C02488'>size</span></b>.  <b><span
+style='color:#C02488'>decl</span></b> specifies the declared name of the</p>
+
+<p class=DispTxt>  array.  <b><span
+style='color:#C02488'>size</span></b> declares the number and size of each
+dimension of the</p>
+
+<p class=DispTxt>  array.  An example is:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#5D421D'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:</span></b>
+<b><span style='color:#C02488'>1:2:3:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  which creates an
+array named <b>b:array:</b> in the current
+buffer.  The use of</p>
+
+<p class=DispTxt>  a scope specification
+letter in <b><span style='color:#C02488'>decl</span></b>
+is necessary and typical of all</p>
+
+<p class=DispTxt>  array commands.  The only letters which may be used are <b>b w g</b> for</p>
+
+<p class=DispTxt>  <b>b</b>uffer, <b>w</b>indow, and <b>g</b>lobal, respectively.  Other letters cannot be used</p>
+
+<p class=DispTxt>  as their scopes will
+not be recognized in the function environment(s)</p>
+
+<p class=DispTxt>  the command(s) call.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  The dimension/size
+specifier tells <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+how many dimensions there</p>
+
+<p class=DispTxt>  are and the size of
+each.  Arrays are filled in <b>row major</b>, meaning the</p>
+
+<p class=DispTxt>  <b>row</b> is filled, column by column. 
+Here the term <b>row</b> is relative
+and</p>
+
+<p class=DispTxt>  only has the classic
+meaning in a 2 dimensional array.  In
+the example,</p>
+
+<p class=DispTxt>  you may think of the
+row as being of one dimension with 2 X 3 columns,</p>
+
+<p class=DispTxt>  or you may think of
+the row as being of two dimensions with 3 columns.</p>
+
+<p class=DispTxt>  Either way, the
+result is the same, the filling order is 0:0:0:, 0:0:1:,</p>
+
+<p class=DispTxt>  0:0:2:, 0:1:0:,
+0:1:1:, 0:1:2:.  This is also a good
+place to point out</p>
+
+<p class=DispTxt>  that arrays are base
+0, however, the size specification base is 1.</p>
+
+<span style='font-size:10.0pt;font-family:"Courier New";color:#216146;'><br clear=all style='
+page-break-before:always'>
+</span>
+
+<p class=DispTxt>&nbsp;</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  <b><span style='color:#C02488'>init</span></b> specifies an optional list
+of initialization values.  It can come</p>
+
+<p class=DispTxt>  in two flavors: a
+comma separated list, or a string.  If
+it is in the</p>
+
+<p class=DispTxt>  form of a string, the
+optional argument <b><span
+style='color:#C02488'>s</span></b> must be used.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:</span></b>
+<b><span style='color:#C02488'>1:2:3:</span></b>
+<b><span style='color:#C02488'>1,2,3,4,5,6</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Creates an array
+initialized to the values specified, in the order</p>
+
+<p class=DispTxt>  specified.  The array consists of 6 elements and there
+are 6 values, so</p>
+
+<p class=DispTxt>  the array is fully
+populated.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span
+style='color:#6A2310'>ARRAYNEW</span></b> <b><span
+style='color:#C02488'>b:array:</span></b> <b><span
+style='color:#C02488'>1:2:3:</span></b> <b><span
+style='color:#C02488'>1,2,3</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  This time there are
+only 3 values, so the array is not fully populated.</p>
+
+<p class=DispTxt>  What are the
+remaining elements?  By default,  they are '<b>&lt;Nul&gt;</b>'.  To</p>
+
+<p class=DispTxt>  change this default,
+use <b><span style='color:#6A2310'>let</span></b>
+<b><span style='color:#C02488'>g:arrayInitVal</span></b><b><span style='color:#6A2310'>=</span>[your-choice]</b>.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:
+1:2:3: my,array</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  First 2 elements of
+the array are '<b>my</b>' and '<b>array</b>' with the remaining</p>
+
+<p class=DispTxt>  4 set to '<b>&lt;Nul&gt;</b>'.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:
+2:2:3: m,y,\ ,a,r,r,a,y</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Elements 0:0:0: thru
+1:0:1: are user initialized, 1:0:2: thru 1:1:2:</p>
+
+<p class=DispTxt>  are defaulted.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>let</span></b> <b><span style='color:#C02488'>b:why</span></b><b><span style='color:#6A2310'>=</span>'y'</b></p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:
+2:2:3: m,b:why,\ ,a,r,r,a,b:why</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Gives the same result
+as the previous example.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:
+1:2:3: my\ array s</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  A third way to
+populate the first 8 elements.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  A few words about <b>string</b>s vs. <b>string literal</b>s.  In arrays,
+the</p>
+
+<p class=DispTxt>  difference is that a <b>string</b> is stored without quotation
+marks while</p>
+
+<p class=DispTxt>  a <b>string literal</b> is stored with them (as
+supplied by the user).  So the</p>
+
+<p class=DispTxt>  difference between</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:
+1:2:3: my\ array</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  and</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:array:
+1:2:3: 'my\ array'</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  is that the first is
+stored without quotation marks, while the second</p>
+
+<p class=DispTxt>  is stored with them
+(in this case, single quotation marks). 
+In both</p>
+
+<p class=DispTxt>  instances, the first
+element of the array is initialized.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>  </p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>&nbsp;</p>
+
+<span style='font-size:10.0pt;font-family:"Courier New";color:#216146;'><br clear=all style='page-break-before:always'>
+</span>
+
+<p class=DispTxt>  Now to comment on how
+to use the elements of the array.  The
+values can</p>
+
+<p class=DispTxt>  be used as any
+variable.  When used as the right hand
+side (<b><span style='color:#C02488'>rhs</span></b>)
+of an</p>
+
+<p class=DispTxt>  expression, they can
+be employed with impunity.  The
+expression</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>let</span></b> <b><span style='color:#C02488'>ltrM</span></b><b><span style='color:#6A2310'>=</span>b:array:0:0:0:</b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  assigns the letter '<b>m</b>' from the above created array to the
+variable <b><span style='color:#C02488'>ltrM</span></b>.</p>
+
+<p class=DispTxt>  And although the
+obverse is equally valid, left hand side (<b><span
+style='color:#C02488'>lhs</span></b>) use can</p>
+
+<p class=DispTxt>  cause problems:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>let</span></b> <b><span style='color:#C02488'>b:array:3:2:2:</span></b><b><span style='color:#6A2310'>=</span>ltrM</b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  from the example,
+there is no <b><span style='color:#C02488'>b:array:3:2:2:</span></b>
+element in the array.  It</p>
+
+<p class=DispTxt>  is, however, created
+outside the bounds of the array.  There
+is an</p>
+
+<p class=DispTxt>  alternative way to
+handle this, with bounds checking.  This
+will be</p>
+
+<p class=DispTxt>  addressed further on
+in this discussion.  For right now, just
+remember,</p>
+
+<p class=DispTxt>  <b><span style='color:#C02488'>rhs</span></b> == <b><span style='color:#00E800'>safe</span></b>, <b><span style='color:#C02488'>lhs</span></b> == <b><span style='color:red'>risky</span></b>.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>&nbsp;</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Now that an array has
+been created, how do we change values within the</p>
+
+<p class=DispTxt>  array?  The <b><span
+style='color:#6A2310'>ARRAYSET</span></b> command is used for this.  With this command,</p>
+
+<p class=DispTxt>  single elements as
+well as sub arrays and entire arrays can be set.</p>
+
+<p class=DispTxt>  The syntax is:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYSET</span></b>
+<b><span style='color:#C02488'>decl val</span></b>
+[<b><span style='color:#C02488'>s</span></b>]</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  <b><span style='color:#C02488'>decl</span></b> has the same usage as in <b><span style='color:#6A2310'>ARRAYNEW</span></b>,
+as does <b><span style='color:#C02488'>val</span></b>,
+being the</p>
+
+<p class=DispTxt>  equivalent of <b><span style='color:#C02488'>init</span></b>
+in that command.  The optional argument,
+<b><span style='color:#C02488'>s</span></b>,</p>
+
+<p class=DispTxt>  likewise has the same
+usage when <b><span style='color:#C02488'>val</span></b>
+is a string.  Again, some</p>
+
+<p class=DispTxt>  examples:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYSET</span></b>
+<b><span style='color:#C02488'>b:array: 1,way,||,another</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Sets the array to the
+specified values  .In this case, only
+one value,</p>
+
+<p class=DispTxt>  and the whole array
+is specified, so the first element of the array is</p>
+
+<p class=DispTxt>  set.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  With <b><span style='color:#6A2310'>ARRAYSET</span></b>,
+<b><span style='color:#C02488'>decl</span></b>
+can also specify an element or a sub array.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYSET</span></b>
+<b><span style='color:#C02488'>b:array:1:
+1,way,||,another</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  sets elements 1:0:0:
+thru 1:1:0:, with 0:0:0: thru 0:1:2: and 1:1:1: and</p>
+
+<p class=DispTxt>  1:1:2: defaulting to <b>&lt;Nul&gt;</b>.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  To set a single
+element, just specify the element as <b><span
+style='color:#C02488'>decl</span></b> and give it</p>
+
+<p class=DispTxt>  a <b><span style='color:#C02488'>val</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYSET</span></b>
+<b><span style='color:#C02488'>b:array:1:1:2:
+1\ way\ ||\ another</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  sets the element and
+checks bounds to assure it is in the array. 
+This</p>
+
+<p class=DispTxt>  obviates the <b><span style='color:#C02488'>lhs</span></b>
+problem in expression assignments.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>  </p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>&nbsp;</p>
+
+<span style='font-size:10.0pt;font-family:"Courier New";color:#216146;'><br clear=all style='page-break-before:always'>
+</span>
+
+<p class=DispTxt>  You can retrieve
+array elements or sub arrays or entire arrays using</p>
+
+<p class=DispTxt>  <b><span style='color:#6A2310'>ARRAYGET</span></b>.  The syntax is</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span
+style='color:#6A2310'>ARRAYGET</span></b> <b><span
+style='color:#C02488'>decl</span></b> [<b><span
+style='color:#C02488'>var</span></b>]</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  <b><span style='color:#C02488'>var</span></b> is an optional variable or
+list of variables in which array element</p>
+
+<p class=DispTxt>  values are to be
+placed.  If it is not specified, the
+values are</p>
+
+<p class=DispTxt>  displayed on the
+command line.  A simple example would
+be:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYGET</span></b>
+<b><span style='color:#C02488'>g:status:3:1:
+b:current</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  This gets the 4th
+row, second element (assuming a 2 dimensional array</p>
+
+<p class=DispTxt>  4 X 2) from the array
+and places it in the argument variable. 
+This is</p>
+
+<p class=DispTxt>  equivalent to:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>let</span></b> <b><span style='color:#C02488'>b:current</span></b><b><span style='color:#6A2310'>=</span>g:status:3:1:</b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Although you can use
+individual array elements as the <b><span
+style='color:#C02488'>rhs</span></b> of an</p>
+
+<p class=DispTxt>  expression,
+assignment of multiple array elements can be a tedious</p>
+
+<p class=DispTxt>  task.  <b><span
+style='color:#6A2310'>ARRAYGET</span></b> simplifies this by accepting a comma
+separated list,</p>
+
+<p class=DispTxt>  <b><span style='color:#C02488'>var</span></b>, of variables and assigning
+successive elements of <b><span
+style='color:#C02488'>decl</span></b> to them.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYGET</span></b>
+<b><span style='color:#C02488'>b:addrBook:2:
+b:name,b:address,b:phone</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  This one statement
+replaces 3 <b><span style='color:#6A2310'>let</span></b>
+statements, retrieving the name,</p>
+
+<p class=DispTxt>  address, and phone
+from the third row in an address book array.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>  </p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  You can make copies
+of arrays and sub arrays with the <b><span
+style='color:#6A2310'>ARRAYCPY</span></b> command.</p>
+
+<p class=DispTxt>  Its syntax is:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYCPY</span></b>
+<b><span style='color:#C02488'>srcdecl
+dstdecl</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  For example, the
+command</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYCPY</span></b>
+<b><span style='color:#C02488'>b:array:
+b:arycpy:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  copies <b>b:array:</b> to <b>b:arycpy:</b>, while</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYCPY</span></b>
+<b><span style='color:#C02488'>b:array:0:
+b:subarycpy:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  copies the sub array <b>b:array:0:</b> to <b>b:subarycpy:</b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Think of <b><span style='color:#6A2310'>ARRAYCPY</span></b>
+as an <b><span style='color:#6A2310'>ARRAYGET</span></b>
+for arrays, or, what <b><span
+style='color:#6A2310'>let</span></b> would do if</p>
+
+<p class=DispTxt>  vim recognized
+arrays.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>  </p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>&nbsp;</p>
+
+<span style='font-size:10.0pt;font-family:"Courier New";color:#216146;'><br clear=all style='page-break-before:always'>
+</span>
+
+<p class=DispTxt>  The dimension of an
+array can be obtained through the command <b><span
+style='color:#6A2310'>ARRAYDIM</span></b>.</p>
+
+<p class=DispTxt>  A string of the form
+'size X size X size...' is returned.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYDIM</span></b>
+<b><span style='color:#C02488'>b:array:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  would return '<b>1 X 2 X</b> <b>3</b>' for an array created with</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYNEW</span></b>
+<b><span style='color:#C02488'>b:arrray:
+1:2:3:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  while</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span style='color:#6A2310'>ARRAYDIM</span></b>
+<b><span style='color:#C02488'>b:array:0:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  would return '<b>2 X 3</b>' for the same array.</p>
+
+<p class=DispTxt> </p>
+
+<p class=Divider>  </p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Lastly, to delete an
+array use <b><span style='color:#6A2310'>ARRAYDEL</span></b>.  The syntax is:</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>       <b><span
+style='color:#6A2310'>ARRAYDEL</span></b> <b><span
+style='color:#C02488'>decl</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=EmphTxt>  NOTE:</p>
+
+<p class=DispTxt>     Only arrays, not
+sub arrays, may be deleted.  This is
+because</p>
+
+<p class=DispTxt>     deletion of a sub
+array could cause the resultant array to be</p>
+
+<p class=DispTxt>     asymmetrical.</p>
+
+<p class=DispTxt> </p>
+
+<span style='font-size:10.0pt;font-family:"Courier New";'><br clear=all style='page-break-before:always'>
+</span>
+
+<p class=HeaderSep>  </p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Let's put it all
+together.  This is an example of using <b>array.vim</b></p>
+
+<p class=DispTxt>  commands to implement an address book array
+in a vim script.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  First create the
+array with 3 dimensions.  The first will
+be the number</p>
+
+<p class=DispTxt>  of entries.  The second will be addresses, and the third
+will be phone</p>
+
+<p class=DispTxt>  numbers.  We'll have a home address and a business
+address to put in the</p>
+
+<p class=DispTxt>  second
+dimension.  For phones, we want to be
+able to contact these</p>
+
+<p class=DispTxt>  people almost
+anywhere, so we'll have 3 phone numbers: business, cell,</p>
+
+<p class=DispTxt>  and home.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  This translates to an
+X:2:3: array size.  For 'X' we'll use
+10, to keep</p>
+
+<p class=DispTxt>  track of our ten most
+contacted people (important contacts).</p>
+
+<p class=DispTxt> </p>
+
+<p class=ArgTxt><span style='color:#6A2310;font-weight:normal'>ARRAYNEW</span>
+g:addrbk: 10:2:3:</p>
+
+<p class=ArgTxt>  \ Dave,1010\ Silicon\
+Way,123\ Elm\ St,5552447\ x300,5552355,5554663,</p>
+
+<p class=ArgTxt>  \John,1010\ Silicon\
+Way,986\ Walnut\ Dr,5552447\ x304,5551776,5552004,</p>
+
+<p class=ArgTxt>  \Frank,1180\ Industry\
+Park,836\ Cherry\ Av,5551212,5552355,5554663,</p>
+
+<p class=ArgTxt>  \Harry,1180\ Industry\
+Park,7734\ Dogwood,5551212,&lt;Nul&gt;,5553320</p>
+
+<p class=ArgTxt> </p>
+
+<p class=DispTxt>  This gives us a new
+global array with 4 initial entries in <b>g:addrbk:</b>.</p>
+
+<p class=DispTxt>  We add a receptionist
+who doesn't give out her home address, has no</p>
+
+<p class=DispTxt>  cell phone, and
+doesn't want her home phone advertised.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt><b><span style='color:
+#6A2310'>ARRAYSET</span></b> <b><span
+style='color:#C02488'>g:addrbk:4: Debbie,1010\ Silicon\
+Way,&lt;Nul&gt;,5552447\ x314</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Now we could define
+commands or functions to access these entries (and</p>
+
+<p class=DispTxt>  probably would), and
+they'd all use <b><span style='color:#6A2310'>ARRAYGET</span></b>
+to access the information.</p>
+
+<p class=DispTxt>  However, for
+brevity's sake, here we'll just use the command directly.</p>
+
+<p class=DispTxt>  We need to get in
+touch with Frank, row index 2 in the array.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt><b><span style='color:
+#6A2310'>ARRAYGET</span></b> <b><span
+style='color:#C02488'>g:addrbk:2:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  This would display</p>
+
+<p class=DispTxt> </p>
+
+<p class=EmphTxt>- Frank - 1180 Industry Park - 836 Cherry Ave. - 5551212 -
+5552355 - 5554663 -</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>   To get just phones</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt><b><span style='color:
+#6A2310'>ARRAYGET</span></b> <b><span
+style='color:#C02488'>g:addrbk:2:1:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  which returns</p>
+
+<p class=DispTxt> </p>
+
+<p class=EmphTxt>- 5551212 - 5552355 - 5554663 -</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>   To get his business
+address</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt><b><span style='color:
+#6A2310'>ARRAYGET</span></b> <b><span
+style='color:#C02488'>g:addrbk:2:0:1:</span></b></p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  which returns</p>
+
+<p class=DispTxt> </p>
+
+<p class=EmphTxt>- 1180 Industry Park -</p>
+
+<p class=MsoPlainText> </p>
+
+<p class=DispTxt>  And so on.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt> </p>
+
+<span style='font-size:10.0pt;font-family:"Courier New";color:#216146;'><br clear=all style='page-break-before:always'>
+</span>
+
+<p class=DispTxt> There is a sample
+file, <b>example/addrbook.vim</b>, included
+with this</p>
+
+<p class=DispTxt>  package that
+illustrates this example along with suggested commands</p>
+
+<p class=DispTxt>  and a function for
+accessing the array.</p>
+
+<p class=DispTxt> </p>
+
+<p class=HeaderSep>&nbsp;</p>
+
+<p class=MsoPlainText> </p>
+
+<p class=CmdTxt>     This section just
+deals with some miscellany, partly about the</p>
+
+<p class=CmdTxt>     function interface,
+but also about the buffer variables that can be</p>
+
+<p class=CmdTxt>     used to control
+various aspects of <span style='color:#216146'>array.vim</span> behavior.  It will be</p>
+
+<p class=CmdTxt>     quite short,
+further information can be gleaned from perusing</p>
+
+<p class=CmdTxt>     <span
+style='color:#216146'>array.vim</span>.</p>
+
+<p class=CmdTxt> </p>
+
+<p class=DispTxt>  For each command
+there is a corresponding function which is lower case</p>
+
+<p class=DispTxt>  excepting the first
+letter, and the first letter of the command acronym.</p>
+
+<p class=DispTxt>  E.G., for <b><span style='color:#6A0000'>ARRAYGET</span></b>,
+the corresponding function is <b><span
+style='color:#6A0000'>ArrayGet()</span></b>.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  The command mechanism
+in vim passes arguments to functions enclosed in</p>
+
+<p class=DispTxt>  quotes.  You will have to mimic this behavior to use
+the functions.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  Because arguments are
+quoted, you should dereference variables to their</p>
+
+<p class=DispTxt>  constituent parts
+before quoting and passing.</p>
+
+<p class=DispTxt> </p>
+
+<p class=DispTxt>  The following
+variables can be assigned values to control some aspects</p>
+
+<p class=DispTxt>  of function behavior.</p>
+
+<p class=DispTxt> </p>
+
+<p class=CmdTxt>  g:arrayInitVal</p>
+
+<p class=DispTxt>       specifies the
+value to be placed in non-initialized array elements.</p>
+
+<p class=MsoPlainText> </p>
+
+<p class=CmdTxt>  g:arrayVerboseMsg</p>
+
+<p class=DispTxt>       if zero, turns
+off messages and warnings, default is one.</p>
+
+<p class=MsoPlainText> </p>
+
+<p class=DispTxt>  Other buffer
+variables exist which control display colors, see script.</p>
+
+<p class=MsoPlainText> </p>
+
+<p class=HeaderSep>&nbsp;</p>
+
+<p class=MsoPlainText> </p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,331 @@
+
+
+ 
+  -----------------------------------------------------
+ 
+  The plugin array.vim implements arrays.  Although a simple implementation,
+  it addresses most basic array applications.  It is based on user defined
+  commands (see :h 40.2, :h user-commands, and :h command) that can be
+  used both on the command line and in scripts.  These commands are
+  a syntactical convenience to provide ease of use and readability.  For
+  the more ambitious, functions called by these commands can be accessed
+  directly.  The use and description of these functions will not be
+  treated here.  From the command descriptions here, and reviewing the
+  related command/function declaration/definition in array.vim, function
+  usage should be readily apparent.
+ 
+  For quick reference, the command ARRAYSYN displays the syntax for all
+  commands.  For more detail with simple examples, use the command
+  ARRAYUSE.  Both of these have an optional command name argument which
+  provides for the display of specific commands.  For example, 
+ 
+       ARRAYSYN  ARRAYNEW
+ 
+  will display syntax information on array creation.
+ 
+  -----------------------------------------------------
+ 
+  To use an array, you must first create one.  The command ARRAYNEW is
+  used to do this.  The following describes how this is done and also
+  gives general information on array basics as they apply.
+  The syntax of the command is:
+ 
+       ARRAYNEW decl size [init] [s]
+ 
+  ARRAYNEW takes 2 required arguments and 2 optional.  The required
+  arguments are decl and size.  decl specifies the declared name of the
+  array.  size declares the number and size of each dimension of the
+  array.  An example is:
+ 
+       ARRAYNEW b:array: 1:2:3:
+ 
+  which creates an array named b:array: in the current buffer.  The use of
+  a scope specification letter in decl is necessary and typical of all
+  array commands.  The only letters which may be used are b w g for
+  buffer, window, and global, respectively.  Other letters cannot be used
+  as their scopes will not be recognized in the function environment(s)
+  the command(s) call.
+ 
+  The dimension/size specifier tells ARRAYNEW how many dimensions there
+  are and the size of each.  Arrays are filled in row major, meaning the
+  row is filled, column by column.  Here the term row is relative and
+  only has the classic meaning in a 2 dimensional array.  In the example,
+  you may think of the row as being of one dimension with 2 X 3 columns,
+  or you may think of the row as being of two dimensions with 3 columns.
+  Either way, the result is the same, the filling order is 0:0:0:, 0:0:1:,
+  0:0:2:, 0:1:0:, 0:1:1:, 0:1:2:.  This is also a good place to point out
+  that arrays are base 0, however, the size specification base is 1.
+ 
+  init specifies an optional list of initialization values.  It can come
+  in two flavors: a comma separated list, or a string.  If it is in the
+  form of a string, the optional argument s must be used.
+ 
+       ARRAYNEW b:array: 1:2:3: 1,2,3,4,5,6
+ 
+  Creates an array initialized to the values specified, in the order
+  specified.  The array consists of 6 elements and there are 6 values, so
+  the array is fully populated.
+ 
+       ARRAYNEW b:array: 1:2:3: 1,2,3
+ 
+  This time there are only 3 values, so the array is not fully populated.
+  What are the remaining elements?  By default,  they are '<Nul>'.  To
+  change this default, use let g:arrayInitVal=[your-choice].
+ 
+       ARRAYNEW b:array: 1:2:3: my,array
+ 
+  First 2 elements of the array are 'my' and 'array' with the remaining
+  4 set to '<Nul>'.
+ 
+       ARRAYNEW b:array: 2:2:3: m,y,\ ,a,r,r,a,y
+ 
+  Elements 0:0:0: thru 1:0:1: are user initialized, 1:0:2: thru 1:1:2:
+  are defaulted.
+ 
+       let b:why='y'
+       ARRAYNEW b:array: 2:2:3: m,b:why,\ ,a,r,r,a,b:why
+ 
+  Gives the same result as the previous example.
+ 
+       ARRAYNEW b:array: 1:2:3: my\ array s
+ 
+  A third way to populate the first 8 elements.
+ 
+  A few words about strings vs. string literals.  In arrays, the
+  difference is that a string is stored without quotation marks while
+  a string literal is stored with them (as supplied by the user).  So the
+  difference between
+ 
+       ARRAYNEW b:array: 1:2:3: my\ array
+ 
+  and
+ 
+       ARRAYNEW b:array: 1:2:3: 'my\ array'
+ 
+  is that the first is stored without quotation marks, while the second
+  is stored with them (in this case, single quotation marks).  In both
+  instances, the first element of the array is initialized.
+ 
+  -----------------------------------------------------
+ 
+  Now to comment on how to use the elements of the array.  The values can
+  be used as any variable.  When used as the right hand side (rhs) of an
+  expression, they can be employed with impunity.  The expression
+ 
+       let ltrM=b:array:0:0:0:
+ 
+  assigns the letter 'm' from the above created array to the variable ltrM.
+  And although the obverse is equally valid, left hand side (lhs) use can
+  cause problems:
+ 
+       let b:array:3:2:2:=ltrM
+ 
+  from the example, there is no b:array:3:2:2: element in the array.  It
+  is, however, created outside the bounds of the array.  There is an
+  alternative way to handle this, with bounds checking.  This will be
+  addressed further on in this discussion.  For right now, just remember,
+  rhs == safe, lhs == risky.
+ 
+  -----------------------------------------------------
+ 
+  Now that an array has been created, how do we change values within the
+  array?  The ARRAYSET command is used for this.  With this command,
+  single elements as well as sub arrays and entire arrays can be set.
+  The syntax is:
+ 
+       ARRAYSET decl val [s]
+ 
+  decl has the same usage as in ARRAYNEW, as does val, being the
+  equivalent of init in that command.  The optional argument, s,
+  likewise has the same usage when val is a string.  Again, some
+  examples:
+ 
+       ARRAYSET b:array: 1,way,||,another
+ 
+  Sets the array to the specified values  .In this case, only one value,
+  and the whole array is specified, so the first element of the array is
+  set.
+ 
+  With ARRAYSET, decl can also specify an element or a sub array.
+ 
+       ARRAYSET b:array:1: 1,way,||,another
+ 
+  sets elements 1:0:0: thru 1:1:0:, with 0:0:0: thru 0:1:2: and 1:1:1: and
+  1:1:2: defaulting to <Nul>.
+ 
+  To set a single element, just specify the element as decl and give it
+  a val
+ 
+       ARRAYSET b:array:1:1:2: 1\ way\ ||\ another
+ 
+  sets the element and checks bounds to assure it is in the array.  This
+  obviates the lhs problem in expression assignments.
+ 
+  -----------------------------------------------------
+ 
+  You can retrieve array elements or sub arrays or entire arrays using
+  ARRAYGET.  The syntax is
+ 
+       ARRAYGET decl [var]
+ 
+  var is an optional variable or list of variables in which array element
+  values are to be placed.  If it is not specified, the values are
+  displayed on the command line.  A simple example would be:
+ 
+       ARRAYGET g:status:3:1: b:current
+ 
+  This gets the 4th row, second element (assuming a 2 dimensional array
+  4 X 2) from the array and places it in the argument variable.  This is
+  equivalent to:
+ 
+       let b:current=g:status:3:1:
+ 
+  Although you can use individual array elements as the rhs of an
+  expression, assignment of multiple array elements can be a tedious
+  task.  ARRAYGET simplifies this by accepting a comma separated list,
+  var, of variables and assigning successive elements of decl to them.
+ 
+       ARRAYGET b:addrBook:2: b:name,b:address,b:phone
+ 
+  This one statement replaces 3 let statements, retrieving the name,
+  address, and phone from the third row in an address book array.
+ 
+  -----------------------------------------------------
+ 
+  You can make copies of arrays and sub arrays with the ARRAYCPY command.
+  Its syntax is:
+ 
+       ARRAYCPY srcdecl dstdecl
+ 
+  For example, the command
+ 
+       ARRAYCPY b:array: b:arycpy:
+ 
+  copies b:array: to b:arycpy:, while
+ 
+       ARRAYCPY b:array:0: b:subarycpy:
+ 
+  copies the sub array b:array:0: to b:subarycpy:
+ 
+  Think of ARRAYCPY as an ARRAYGET for arrays, or, what let would do if
+  vim recognized arrays.
+ 
+  -----------------------------------------------------
+ 
+  The dimension of an array can be obtained through the command ARRAYDIM.
+  A string of the form 'size X size X size...' is returned.
+ 
+       ARRAYDIM b:array:
+ 
+  would return '1 X 2 X 3' for an array created with
+ 
+       ARRAYNEW b:arrray: 1:2:3:
+ 
+  while
+ 
+       ARRAYDIM b:array:0:
+ 
+  would return '2 X 3' for the same array.
+ 
+  -----------------------------------------------------
+ 
+  Lastly, to delete an array use ARRAYDEL.  The syntax is:
+ 
+       ARRAYDEL decl
+ 
+  NOTE:
+     Only arrays, not sub arrays, may be deleted.  This is because
+     deletion of a sub array could cause the resultant array to be
+     asymmetrical.
+ 
+  -----------------------------------------------------
+ 
+  Let's put it all together.  This is an example of using array.vim
+  commands to implement an address book array in a vim script.
+ 
+  First create the array with 3 dimensions.  The first will be the number
+  of entries.  The second will be addresses, and the third will be phone
+  numbers.  We'll have a home address and a business address to put in the
+  second dimension.  For phones, we want to be able to contact these
+  people almost anywhere, so we'll have 3 phone numbers: business, cell,
+  and home.
+ 
+  This translates to an X:2:3: array size.  For 'X' we'll use 10, to keep
+  track of our ten most contacted people (important contacts).
+ 
+ARRAYNEW g:addrbk: 10:2:3:
+  \ Dave,1010\ Silicon\ Way,123\ Elm\ St,5552447\ x300,5552355,5554663,
+  \John,1010\ Silicon\ Way,986\ Walnut\ Dr,5552447\ x304,5551776,5552004,
+  \Frank,1180\ Industry\ Park,836\ Cherry\ Av,5551212,5552355,5554663,
+  \Harry,1180\ Industry\ Park,7734\ Dogwood,5551212,<Nul>,5553320
+ 
+  This gives us a new global array with 4 initial entries in g:addrbk:.
+  We add a receptionist who doesn't give out her home address, has no
+  cell phone, and doesn't want her home phone advertised.
+ 
+ARRAYSET g:addrbk:4: Debbie,1010\ Silicon\ Way,<Nul>,5552447\ x314
+ 
+  Now we could define commands or functions to access these entries (and
+  probably would), and they'd all use ARRAYGET to access the information.
+  However, for brevity's sake, here we'll just use the command directly.
+  We need to get in touch with Frank, row index 2 in the array.
+ 
+ARRAYGET g:addrbk:2:
+ 
+  This would display
+ 
+- Frank - 1180 Industry Park - 836 Cherry Ave. - 5551212 - 5552355 - 5554663 -
+ 
+   To get just phones
+ 
+ARRAYGET g:addrbk:2:1:
+ 
+  which returns
+ 
+- 5551212 - 5552355 - 5554663 -
+ 
+   To get his busines address
+ 
+ARRAYGET g:addrbk:2:0:1:
+ 
+  which returns
+ 
+- 1180 Industry Park -
+ 
+  And so on.
+ 
+  There is a sample file, example/addrbook.vim, included with this
+  package that illustrates this example along with suggested commands
+  and a function for accessing the array.
+ 
+  -----------------------------------------------------
+ 
+     This section just deals with some miscellany, partly about the
+     function interface, but also about the buffer variables that can be
+     used to control various aspects of array.vim behavior.  It will be
+     quite short, further information can be gleaned from perusing
+     array.vim.
+ 
+  For each command there is a corresponding function which is lower case
+  excepting the first letter, and the first letter of the command acronym.
+  E.G., for ARRAYGET, the corresponding function is ArrayGet().
+ 
+  The command mechanism in vim passes arguments to functions enclosed in
+  quotes.  You will have to mimic this behavior to use the functions.
+ 
+  Because arguments are quoted, you should dereference variables to their
+  constituent parts before quoting and passing.
+ 
+  The following variables can be assigned values to control some aspects
+  of function behavior.
+ 
+  g:arrayInitVal
+       specifies the value to be placed in non-initialized array elements.
+ 
+  g:arrayVerboseMsg
+       if zero, turns off messages and warnings, default is one.
+ 
+  Other buffer variables exist which control display colors, see script.
+ 
+  -----------------------------------------------------
+ 

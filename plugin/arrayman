@@ -1011,7 +1011,7 @@ execute 'echohl '.b:manEmphColor
 echo "- 5551212 - 5552355 - 5554663 -"
 execute 'echohl '.b:manDispColor
 echo " "
-echo "   To get his busines address"
+echo "   To get his business address"
 echo " "
 execute 'echohl '.b:manCmdColor
 echo "ARRAYGET"
@@ -1081,7 +1081,7 @@ echo " "
 execute 'echohl '.b:manCmdColor
 echo "  g:arrayVerboseMsg"
 execute 'echohl '.b:manDispColor
-echo "       if zero, turns of messages and warnings, default is one."
+echo "       if zero, turns off messages and warnings, default is one."
 echo " "
 echo "  Other buffer variables exist which control display colors, see script."
 Header
