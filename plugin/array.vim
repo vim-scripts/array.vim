@@ -1,16 +1,22 @@
 " Vim plugin for multi-dimensional array manipulation
 " Language:    vim script
 " Maintainer:  Dave Silvia <dsilvia@mchsi.com>
-" Date:        7/16/2004
+" Date:        9/2/2004
+"
+"
+" Version 1.2
+"   Added:
+"     -  ARRAYPUT puts elements
+"        of one array into another
 "
 
 command! -nargs=* ARRAYSYN :call ArrayCmdSyntax(<f-args>)
 command! -nargs=* ARRAYUSE :call ArrayCmdUse(<f-args>)
-command! -nargs=0 ARRAYMAN :call ArrayManual()
 command! -nargs=+ ARRAYNEW :call ArrayNew(<f-args>)
 command! -nargs=+ ARRAYSET :call ArraySet(<f-args>)
 command! -nargs=+ ARRAYGET :call ArrayGet(<f-args>)
 command! -nargs=+ ARRAYCPY :call ArrayCpy(<f-args>)
+command! -nargs=+ ARRAYPUT :call ArrayPut(<f-args>)
 command! -nargs=* ARRAYDIM :call s:CmdArrayDim(<f-args>)
 command! -nargs=1 ARRAYDEL :call ArrayDel(<f-args>)
 
@@ -61,17 +67,6 @@ function! s:syntaxError()
 	call DispWarn("   to display command syntax and description")
 	call DispWarn(" Use 'ARRAYUSE' or 'ARRAYUSE <command-name>'")
 	call DispWarn("   to display command syntax only")
-	call DispWarn(" Use 'ARRAYMAN' for help/tutorial")
-endfunction
-
-function! s:arraymanSyntax(dispAll)
-	execute 'echohl '.b:cmdDispColor
-	echo "ARRAYMAN"
-	if a:dispAll
-		execute 'echohl '.b:cmdDescColor
-		echo "    displays a help/tutorial text"
-	endif
-	echohl None
 endfunction
 
 function! s:acmduseSyntax(dispAll)
@@ -288,10 +283,39 @@ function! s:arraycpySyntax(dispAll)
 		echo "        ARRAYCPY g:myArray:0: b:myCopy:"
 		execute 'echohl '.b:cmdDescColor
 		echo "    copies sub array g:myArray:0: to b:myCopy:"
+	endif
+	echohl None
+endfunction
+
+function! s:arrayputSyntax(dispAll)
+	execute 'echohl '.b:cmdDispColor
+	echo "ARRAYPUT srcdecl dstdecl"
+	if a:dispAll
+		execute 'echohl '.b:cmdDescColor
+		echo "    srcdecl    <scope>:<name>:[<index>:...:]"
+		echo "    dstdecl"
 		echo " "
-		echo "    NOTE: scope letter must be specified and be one of 'b w g'"
-		echo "          if more variables than array elements, the remaining"
-		echo "          variables are undefined."
+		echo "    scope      one of 'b w g' for 'buffer', 'window', and 'global'"
+		echo "               scope, respectively."
+		echo "    name       unique name within the scope."
+		echo "    index      optional index of a sub array."
+		echo "               Note: arrays are zero base indexed."
+		echo " "
+		execute 'echohl '.b:cmdExampleTitle
+		echo "  Example:"
+		execute 'echohl '.b:cmdDispColor
+		echo "        ARRAYPUT g:myArray: b:altarray:"
+		execute 'echohl '.b:cmdDescColor
+		echo "    puts g:myArray: elements into b:altarray:"
+		echo " "
+		execute 'echohl '.b:cmdExampleTitle
+		echo "  Example:"
+		execute 'echohl '.b:cmdDispColor
+		echo "        ARRAYPUT g:myArray:0: b:altarray:"
+		execute 'echohl '.b:cmdDescColor
+		echo "    puts sub array g:myArray:0: elements into b:altarray:"
+		echo " "
+		echo "  ARRAYPUT puts elements as/where dimension designation is appropriate"
 	endif
 	echohl None
 endfunction
@@ -321,8 +345,6 @@ function! s:arraydelSyntax(dispAll)
 endfunction
 
 function! s:allSyntax(dispAll)
-	call s:arraymanSyntax(a:dispAll)
-	echo " "
 	call s:acmdsynSyntax(a:dispAll)
 	echo " "
 	call s:acmduseSyntax(a:dispAll)
@@ -334,6 +356,8 @@ function! s:allSyntax(dispAll)
 	call s:arraygetSyntax(a:dispAll)
 	echo " "
 	call s:arraycpySyntax(a:dispAll)
+	echo " "
+	call s:arrayputSyntax(a:dispAll)
 	echo " "
 	call s:arraydimSyntax(a:dispAll) 
 	echo " "
@@ -435,11 +459,6 @@ endfunction
 
 
 " global functions
-
-
-function! ArrayManual()
-	runtime! plugin/arrayman
-endfunction
 
 function! DispMsg(msg)
 	if !g:arrayVerboseMsg
@@ -824,6 +843,43 @@ function! ArrayCpy(srcdecl,dstdecl)
 		let dstelem=a:dstdecl.strpart(srcelem,matchend(srcelem,a:srcdecl))
 		execute 'let '.dstelem."=".srcelem
 	endwhile
+endfunction
+
+function! ArrayPut(srcdecl,dstdecl)
+	let isdecl=IsArrayDecl(a:srcdecl)
+	if isdecl != 1
+		if isdecl == -1
+			call DispErr(expand("<sfile>").": a:srcdecl <".a:srcdecl."> is a non-existing decl")
+		else
+			call DispErr(expand("<sfile>").": a:srcdecl <".a:srcdecl."> is an invalid decl")
+			call s:syntaxError()
+		endif
+		return
+	endif
+	let isdecl=IsArrayDecl(a:dstdecl)
+	if isdecl != 1
+		if isdecl == -1
+			call DispErr(expand("<sfile>").": a:dstdecl <".a:dstdecl."> is a non-existing decl")
+		else
+			call DispErr(expand("<sfile>").": a:dstdecl <".a:dstdecl."> is an invalid decl")
+			call s:syntaxError()
+		endif
+		return
+	endif
+	let arrayElems=s:getArrayElems(a:srcdecl)
+	let srcelem=StrListTok(arrayElems,'b:APUTarrayElems',',')
+	if srcelem == ''
+		call DispErr(expand("<sfile>").": empty array - should use ARRAYDEL ".a:srcdecl)
+		return
+	endif
+	while srcelem != ''
+		let dstelem=a:dstdecl.strpart(srcelem,matchend(srcelem,a:srcdecl))
+		if exists(dstelem)
+			let {dstelem}={srcelem}
+		endif
+		let srcelem=StrListTok('','b:APUTarrayElems')
+	endwhile
+	unlet b:APUTarrayElems
 endfunction
 
 function! ArrayDel(decl)
